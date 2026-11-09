@@ -28,4 +28,4 @@ MatrixNEXT 2026 · AI BUILDER FESTIVAL · 创意赛道（流程自动驾驶）�
 
 ## 运行
 
-Windows 10 / 11 x64。从 Releases 下载便携版（完整版为 4 个分卷，全部下载后用 7-Zip 解压 .001；轻量版为单个 zip），解压后双击「启动演示.bat」。默认 mock 演示模式无需 API Key；接入真实模型请在「设置 → AI 模型」中配置。
+Windows 10 / 11 x64。从 Releases 下载便携版（完整版为单个 7z 压缩包，用 7-Zip 解压；轻量版为单个 zip），解压后双击「启动演示.bat」。默认 mock 演示模式无需 API Key；接入真实模型请在「设置 → AI 模型」中配置。
