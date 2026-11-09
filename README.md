@@ -1,3 +1,5 @@
+![扶摇](assets/logo.svg)
+
 # 扶摇 SOAR · 可审批、可审计的浏览器智能体
 
 MatrixNEXT 2026 · AI BUILDER FESTIVAL · 创意赛道（流程自动驾驶）参赛作品。

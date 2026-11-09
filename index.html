@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>扶摇 SOAR · 可审批、可审计的浏览器智能体 | MatrixNEXT 2026</title>
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/favicon.png" sizes="32x32" />
 <meta name="description" content="扶摇是一个 AI 原生浏览器：让智能体「鹏」在真实网页上操作，高风险动作必须审批，全过程可审计。MatrixNEXT 2026 创意赛道作品。" />
 <style>
   :root {
@@ -63,7 +65,7 @@
   header.nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px); background: rgba(5,7,12,.72); border-bottom: 1px solid var(--line); }
   .nav-inner { display: flex; align-items: center; gap: 26px; height: 64px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 1px; }
-  .mark { width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 32% 30%, #bff, var(--cyan) 45%, var(--cyan-deep)); box-shadow: 0 0 22px rgba(62,221,223,.45); }
+  .mark { width: 30px; height: 30px; display: block; filter: drop-shadow(0 0 10px rgba(62,221,223,.45)); }
   .nav-links { display: flex; gap: 22px; margin-left: auto; }
   .nav-links a { color: var(--ink-2); font-size: 14px; }
   .nav-links a:hover { color: var(--ink); }
@@ -168,7 +170,7 @@
 <body>
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="#top"><span class="mark"></span>扶摇 <span class="muted small" style="font-weight:400">SOAR</span></a>
+    <a class="brand" href="#top"><img class="mark" src="assets/logo.svg" alt="扶摇标志" />扶摇 <span class="muted small" style="font-weight:400">SOAR</span></a>
     <nav class="nav-links">
       <a href="#why">为什么</a>
       <a href="#features">能力</a>
