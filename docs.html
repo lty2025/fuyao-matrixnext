@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>扶摇 SOAR · 说明文档 | MatrixNEXT 2026</title>
+<meta name="description" content="扶摇 SOAR 参赛作品说明文档：问题、方案、技术栈、创新点与使用说明。" />
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/favicon.png" sizes="32x32" />
+<style>
+  :root { --bg:#05070c; --panel:#0b0e14; --line:#1a2331; --ink:#eaf4f5; --ink2:#b4c2cb; --ink3:#84939d; --cyan:#3edddf; --gold:#f0c979; --danger:#ff7a6b; --ok:#67e0b2; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.8 'Segoe UI','Microsoft YaHei',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; display: block; }
+  .top { position: sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px; padding:0 28px; height:58px; background:rgba(5,7,12,.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  .top .brand { display:flex; align-items:center; gap:9px; font-weight:700; color:var(--ink); }
+  .top .brand img { width:26px; height:26px; filter:drop-shadow(0 0 8px rgba(62,221,223,.4)); }
+  .top .grow { flex:1; }
+  .top a.btn { padding:7px 14px; border:1px solid var(--line); border-radius:9px; color:var(--ink2); font-size:12.5px; }
+  .top a.btn:hover { background:var(--panel); text-decoration:none; }
+  .layout { display:flex; max-width:1280px; margin:0 auto; }
+  aside { width:250px; flex:none; padding:28px 18px 60px 28px; position:sticky; top:58px; align-self:flex-start; max-height:calc(100vh - 58px); overflow:auto; }
+  aside .tagline { color:var(--ink3); font-size:12px; letter-spacing:.5px; margin-bottom:14px; }
+  aside a { display:block; color:var(--ink2); font-size:13px; padding:5px 8px; border-left:2px solid transparent; border-radius:0 6px 6px 0; }
+  aside a:hover { color:var(--ink); background:rgba(255,255,255,.03); text-decoration:none; }
+  aside .sub { padding-left:18px; font-size:12.5px; color:var(--ink3); }
+  main { flex:1; min-width:0; padding:34px 46px 100px; max-width:960px; }
+  h1 { font-size:34px; line-height:1.25; margin:6px 0 10px; letter-spacing:.5px; }
+  h2 { font-size:24px; margin:46px 0 12px; padding-top:8px; scroll-margin-top:80px; letter-spacing:.4px; }
+  h3 { font-size:17px; margin:24px 0 8px; color:var(--ink); }
+  h2 .num { color:var(--cyan); font-size:14px; letter-spacing:2px; display:block; margin-bottom:4px; font-weight:500; }
+  p { color:var(--ink2); margin:8px 0 12px; }
+  .lead { color:var(--ink2); font-size:16px; }
+  .meta { color:var(--ink3); font-size:12.5px; }
+  .tag { display:inline-block; padding:2px 9px; border:1px solid var(--line); border-radius:999px; font-size:11.5px; color:var(--ink3); margin-right:6px; }
+  .tag.cyan { color:var(--cyan); border-color:rgba(62,221,223,.35); background:rgba(62,221,223,.07); }
+  .card { border:1px solid var(--line); border-radius:14px; background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008)); padding:18px 20px; margin:14px 0; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .kpi { border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:var(--panel); }
+  .kpi b { display:block; color:var(--cyan); font-size:22px; }
+  .kpi span { color:var(--ink3); font-size:12px; }
+  ul, ol { color:var(--ink2); padding-left:22px; margin:8px 0 14px; }
+  li { margin:4px 0; }
+  table { width:100%; border-collapse:collapse; margin:14px 0 18px; font-size:13.5px; }
+  th, td { border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top; }
+  th { background:rgba(255,255,255,.035); color:var(--ink); font-weight:600; }
+  td { color:var(--ink2); }
+  code { background:rgba(255,255,255,.06); padding:1px 5px; border-radius:5px; font:12.5px Consolas,'Courier New',monospace; color:#cfe9ea; }
+  pre { background:#0a0f17; border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow:auto; font:12.5px/1.7 Consolas,'Courier New',monospace; color:#cfe9ea; }
+  .callout { border:1px solid rgba(240,201,121,.3); background:rgba(240,201,121,.06); border-radius:12px; padding:12px 16px; color:var(--ink2); font-size:13.5px; margin:14px 0; }
+  .callout b { color:var(--gold); }
+  .shot { border:1px solid #1c2633; border-radius:12px; overflow:hidden; margin:14px 0 4px; }
+  .shot img { width:100%; }
+  .cap { color:var(--ink3); font-size:12px; text-align:center; margin:6px 0 16px; }
+  .arch { border:1px solid var(--line); border-radius:14px; background:var(--panel); padding:18px; margin:16px 0 8px; }
+  .arch-label { color:var(--ink3); font-size:11.5px; letter-spacing:1px; margin:10px 0 6px; }
+  .arch-row { display:flex; align-items:stretch; gap:10px; flex-wrap:wrap; }
+  .node { flex:1; min-width:150px; border:1px solid #263247; border-radius:10px; padding:10px 12px; background:#101823; font-size:13px; color:var(--ink); }
+  .node small { display:block; color:var(--ink3); font-size:11.5px; margin-top:2px; line-height:1.5; }
+  .node.guard { border-color:rgba(240,201,121,.35); background:rgba(240,201,121,.05); }
+  .node.model { border-color:rgba(62,221,223,.3); background:rgba(62,221,223,.05); }
+  .arrow { align-self:center; color:var(--ink3); font-size:16px; }
+  .foot { border-top:1px solid var(--line); margin-top:60px; padding-top:20px; color:var(--ink3); font-size:12.5px; }
+  .foot a { color:var(--ink2); }
+  @media (max-width: 900px) {
+    aside { display:none; }
+    main { padding:24px 20px 80px; }
+    .grid2, .grid3 { grid-template-columns:1fr; }
+    .top { padding:0 16px; }
+  }
+  @media print {
+    @page { margin: 16mm 14mm; }
+    html, body { background:#fff; color:#111; }
+    .top, aside, .no-print { display:none !important; }
+    .layout { display:block; max-width:none; }
+    main { max-width:none; padding:0; }
+    h1, h2, h3, th, .node { color:#111 !important; }
+    h2 { page-break-after: avoid; margin-top:26px; }
+    h3 { page-break-after: avoid; }
+    p, li, td { color:#333 !important; }
+    .card, .arch, .kpi, .callout, pre { background:#f7f8fa !important; border-color:#d9dee6 !important; }
+    code { background:#eef1f5; color:#0f4c4f; }
+    .shot img { border:1px solid #d9dee6; }
+    a { color:#0e6e74; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html"><img src="assets/logo.svg" alt="" />扶摇 SOAR</a>
+  <span class="meta">说明文档 · v0.4.1 参赛版 · 2026-11-09</span>
+  <span class="grow"></span>
+  <a class="btn" href="index.html">作品主页</a>
+  <a class="btn" href="docs.pdf">下载 PDF</a>
+  <a class="btn" href="https://github.com/lty2025/fuyao-matrixnext" target="_blank" rel="noreferrer">GitHub</a>
+</header>
+
+<div class="layout">
+  <aside>
+    <div class="tagline">MATRIXNEXT 2026 · 创意赛道</div>
+    <a href="#overview">01 项目概述</a>
+    <a href="#problem">02 问题：智能体的信任缺口</a>
+    <a href="#solution">03 方案：可信执行闭环</a>
+    <a href="#tech">04 技术栈与架构</a>
+    <a href="#innovation">05 创新点</a>
+    <a href="#completeness">06 完成度与实测</a>
+    <a href="#usage">07 使用说明</a>
+    <a href="#value">08 场景与业务价值</a>
+    <a href="#security">09 安全与隐私</a>
+    <a href="#roadmap">10 局限与路线图</a>
+    <a href="#team">11 团队与开源声明</a>
+    <a href="#appendix">附录</a>
+  </aside>
+
+  <main>
+    <h1>扶摇 SOAR<br />可审批、可审计的浏览器智能体</h1>
+    <p class="lead">用一句自然语言，让智能体「鹏」在真实网页上观察、点击、输入、总结；高风险操作必须经过你审批，每一步都留下审计记录。</p>
+    <p><span class="tag cyan">MatrixNEXT 2026 · 创意赛道 · 流程自动驾驶</span><span class="tag">Windows 10/11</span><span class="tag">本地离线语音</span><span class="tag">模型无关</span></p>
+    <p class="meta">作品主页：<a href="https://lty2025.github.io/fuyao-matrixnext/">lty2025.github.io/fuyao-matrixnext</a> · 仓库：<a href="https://github.com/lty2025/fuyao-matrixnext">lty2025/fuyao-matrixnext</a></p>
+
+    <div class="grid3">
+      <div class="kpi"><b>4 级</b><span>L0–L3 操作安全策略</span></div>
+      <div class="kpi"><b>100%</b><span>工具调用写入审计日志</span></div>
+      <div class="kpi"><b>3 步</b><span>mock 演示完成一次搜索任务</span></div>
+    </div>
+
+    <h2 id="overview"><span class="num">01</span>项目概述</h2>
+    <p>扶摇（SOAR）是一个 AI 原生浏览器：它不是给浏览器加一个聊天框，而是把「智能体能真实操作网页」和「操作必须可被信任」放在同一个产品里。</p>
+    <ul>
+      <li><strong>形态</strong>：Windows 桌面应用，免安装便携版；启动即用，数据保存在同目录 <code>profile</code>。</li>
+      <li><strong>智能体</strong>：内置「鹏」，可执行多步浏览器任务，操作过程可视化。</li>
+      <li><strong>定位</strong>：不是“更聪明的浏览器”，而是<strong>浏览器智能体的可信执行层</strong>——能做事，也能说清楚做了什么、为什么做、谁批准的。</li>
+      <li><strong>模型</strong>：OpenAI 兼容接口，支持 DeepSeek、火山方舟、阿里云百炼、智谱 GLM、比赛主推的 MOI Genesis，以及自定义地址；无 Key 时可用 mock 演示模式。</li>
+    </ul>
+
+    <h2 id="problem"><span class="num">02</span>问题：智能体的信任缺口</h2>
+    <p>浏览器智能体已经能点网页，但要在真实工作里被信任，至少有三个问题：</p>
+    <div class="grid3">
+      <div class="card"><h3>操作不可信</h3><p>模型幻觉或误判会触发支付、删除、发送等不可逆动作；缺少分级与人工确认。</p></div>
+      <div class="card"><h3>过程不可见</h3><p>用户只看到最终结果，不知道它点了什么、填了什么、访问了哪里；出问题无法追溯。</p></div>
+      <div class="card"><h3>结果不可靠</h3><p>模型可能“嘴上完成”——没有调用任何工具就宣称任务完成。</p></div>
+    </div>
+    <p>企业场景还多一层：<strong>合规与数据边界</strong>。谁批准了高风险操作？密码有没有落日志？智能体能不能碰本地文件？</p>
+
+    <h2 id="solution"><span class="num">03</span>方案：可信执行闭环</h2>
+    <p>扶摇把智能体执行拆成五段闭环：<strong>观察 → 决策 → 操作 → 审批 → 审计</strong>，每一段都有对应的工程机制。</p>
+    <table>
+      <tr><th>环节</th><th>机制</th><th>用户感知</th></tr>
+      <tr><td>观察</td><td>页面蓝图：把当前视口的可交互元素提取成带编号的列表（ref、标签、类型、文本、坐标）</td><td>鹏按元素引用操作，不是盲点坐标</td></tr>
+      <tr><td>决策</td><td>上下文压缩 + 任务账本（目标/事实/完成/失败）+ 循环检测</td><td>长任务不爆上下文，卡住会换策略</td></tr>
+      <tr><td>操作</td><td>ActionExecutor：点击、输入、按键、滚动、导航；虚拟光标与打字气泡</td><td>屏幕上看得到它正在做什么</td></tr>
+      <tr><td>审批</td><td>L0–L3 分级；L2 弹窗审批，L3 直接拒绝</td><td>高风险操作先问你；拒绝后不重试</td></tr>
+      <tr><td>审计</td><td>工具调用、审批、急停、语音、设置变更写入 JSONL；敏感输入脱敏</td><td>事后可查、可导出</td></tr>
+    </table>
+
+    <h3>零操作守卫</h3>
+    <p>当任务包含「打开/搜索/点击/输入/删除…」等需要实际操作的动词，而鹏在执行任何真实工具之前直接调用 <code>done</code> 或给出文字回答时，守卫会拦下并要求它真实执行（最多 3 次提醒）；仍为空操作则终止任务并报错。如果任务明确写了「不要操作 / 凭你的知识回答」，守卫会豁免。</p>
+
+    <div class="arch">
+      <div class="arch-label">执行链路</div>
+      <div class="arch-row">
+        <div class="node">用户任务 / 语音<small>侧边栏输入、快捷键、whisper 识别</small></div>
+        <div class="arrow">→</div>
+        <div class="node">鹏 AgentSession<small>循环：观察 → 决策 → 工具调用</small></div>
+        <div class="arrow">→</div>
+        <div class="node">ActionExecutor<small>click / type / key / scroll / navigate</small></div>
+        <div class="arrow">→</div>
+        <div class="node">页面 WebContentsView<small>多标签，蓝图、光标与输入</small></div>
+      </div>
+      <div class="arch-label">治理层（贯穿每一步）</div>
+      <div class="arch-row">
+        <div class="node guard">安全策略 L0–L3<small>敏感按钮 / 敏感输入 / 危险协议</small></div>
+        <div class="node guard">审批窗口<small>L2 确认，120 秒自动拒绝</small></div>
+        <div class="node guard">审计日志<small>JSONL，5MB 轮转，敏感脱敏</small></div>
+        <div class="node guard">零操作守卫<small>拒绝“嘴上完成”</small></div>
+      </div>
+      <div class="arch-label">能力与扩展</div>
+      <div class="arch-row">
+        <div class="node model">模型适配层<small>DeepSeek / 方舟 / 百炼 / GLM / Genesis / 自定义</small></div>
+        <div class="node">插件沙箱<small>页面摘要 / 划词翻译，manifest 权限</small></div>
+        <div class="node">本地语音<small>whisper.cpp，离线，16kHz</small></div>
+      </div>
+    </div>
+
+    <h2 id="tech"><span class="num">04</span>技术栈与架构</h2>
+    <table>
+      <tr><th>层</th><th>实现</th></tr>
+      <tr><td>应用外壳</td><td>Electron（Chromium 内核）+ React；多标签使用 WebContentsView；主窗口为无边框自绘标题栏</td></tr>
+      <tr><td>智能体</td><td>AgentSession：系统提示、页面蓝图、工具调用循环、上下文估算与压缩、任务账本、LoopGuard、零操作守卫</td></tr>
+      <tr><td>操作执行</td><td>ActionExecutor：基于蓝图元素中心坐标点击；输入前全选旧内容再逐字输入并回读校验；操作前自动恢复并聚焦主窗口</td></tr>
+      <tr><td>安全策略</td><td>classifyAgentTool：L0 只读 / L1 可逆 / L2 高风险 / L3 禁止；L2 进入审批；L3 直接返回错误</td></tr>
+      <tr><td>审批</td><td>独立 BrowserWindow 模态卡片，显示工具、原因、参数摘要；120 秒未处理自动拒绝；敏感输入显示为 <code>••••••</code></td></tr>
+      <tr><td>审计</td><td><code>audit.jsonl</code> 追加写入，超过 5MB 轮转为 <code>audit.old.jsonl</code>；敏感输入在本会话内做全链路脱敏</td></tr>
+      <tr><td>模型接入</td><td>OpenAI 兼容 <code>/chat/completions</code>（含 function calling）；提供方预设与“获取模型”；Base URL 规范化与错误归类</td></tr>
+      <tr><td>语音</td><td>渲染进程录音（16kHz 单声道 WAV、静音检测）；主进程 whisper-server 常驻识别，失败回落 whisper-cli；简体中文提示词</td></tr>
+      <tr><td>插件</td><td>manifest 声明权限；沙箱 iframe；宿主转发 RPC；主进程逐项校验；插件可注册为鹏的 AI 工具</td></tr>
+      <tr><td>安全边界</td><td>contextIsolation + sandbox；网页 nodeIntegration 关闭；IPC 来源校验；默认拒绝敏感权限；L3 拦截 file://、javascript:、浏览器内部页</td></tr>
+      <tr><td>分发</td><td>GitHub Pages 作品页；GitHub Releases 安装包；便携模式 <code>FUYAO_USER_DATA_DIR</code>，配置与缓存随包</td></tr>
+    </table>
+
+    <h3>上下文与稳定性</h3>
+    <ul>
+      <li>每轮把页面蓝图与历史消息一起估算 token；接近窗口上限时自动压缩历史，并把关键事实保底写入任务账本。</li>
+      <li>LoopGuard 检测重复动作与短周期振荡；零操作守卫检测“未执行就结束”。</li>
+      <li>所有等待与工具执行都可被“停止”中断；停止后不会继续点击或提交。</li>
+    </ul>
+
+    <h2 id="innovation"><span class="num">05</span>创新点</h2>
+    <table>
+      <tr><th>能力</th><th>常见做法</th><th>扶摇</th></tr>
+      <tr><td>高风险操作</td><td>统一执行，事后提示</td><td>L0–L3 分级；L2 当场审批，L3 直接拒绝</td></tr>
+      <tr><td>过程可信</td><td>只给结果</td><td>工具调用全量审计，可查看、导出、轮转</td></tr>
+      <tr><td>敏感数据</td><td>原样进日志/模型总结</td><td>审批与审计中脱敏；模型总结里出现的同一串文字也会被抹掉</td></tr>
+      <tr><td>任务完成</td><td>模型说完成就完成</td><td>零操作守卫：没有真实操作不允许结束</td></tr>
+      <tr><td>语音</td><td>云端识别，需联网</td><td>whisper.cpp 本地离线识别，结果直接填入鹏</td></tr>
+      <tr><td>扩展</td><td>插件拿到全部能力</td><td>插件 manifest 权限 + 沙箱 + 主进程校验</td></tr>
+      <tr><td>模型</td><td>绑定单一厂商</td><td>OpenAI 兼容多提供方，比赛环境已接 MOI Genesis</td></tr>
+    </table>
+    <p><strong>一句话差异</strong>：别的产品教 Agent 怎么做事，扶摇解决“怎么让它做得可被信任”。</p>
+
+    <h2 id="completeness"><span class="num">06</span>完成度与实测</h2>
+    <p>以下均为在 Windows 11 实机上的测试记录（2026-11-07 至 11-09）：</p>
+    <table>
+      <tr><th>能力</th><th>实测结果</th></tr>
+      <tr><td>智能体任务</td><td>百度输入「北京天气」并回车、读取结果、总结前三条；3 步完成，结果准确</td></tr>
+      <tr><td>L2 审批</td><td>点击「删除全部数据」弹出审批；允许后页面状态变化；拒绝后未执行、未重试</td></tr>
+      <tr><td>敏感输入</td><td>密码框输入：审批详情与审计结果均为 <code>••••••</code>；页面实际输入成功</td></tr>
+      <tr><td>L3 拦截</td><td><code>file:///C:/Windows/win.ini</code> 被直接拒绝，审计记录 policy blocked，页面未跳转</td></tr>
+      <tr><td>零操作守卫</td><td>连续拦截 2 次空操作 done + 1 次空回答，最终迫使模型真实导航与读取；「不要操作」任务正常豁免</td></tr>
+      <tr><td>语音</td><td>合成语音「打开百度搜索北京天气」识别成功并填入鹏；简体中文输出</td></tr>
+      <tr><td>快捷键</td><td>Ctrl+Shift+Space 唤起语音、Ctrl+Alt+Escape 急停（窗口最小化时也可触发）；冲突组合会提示注册失败</td></tr>
+      <tr><td>审计</td><td>工具调用/审批/急停/语音/设置/零操作记录完整；设置页可查看最近 50 条并导出</td></tr>
+      <tr><td>模型</td><td>MOI Genesis 连接成功，可用模型 10 个；glm-5.3 实跑任务完成</td></tr>
+      <tr><td>分发</td><td>GitHub Pages 作品页；Releases 含轻量版（169MB）与完整版 4 个分卷（约 581MB）</td></tr>
+    </table>
+    <div class="shot"><img src="assets/approval.png" alt="L2 审批弹窗" /></div>
+    <div class="cap">L2 审批：工具、原因、参数与倒计时；敏感输入自动打码</div>
+    <div class="shot"><img src="assets/security.png" alt="快捷键与安全设置" /></div>
+    <div class="cap">内置设置页：快捷键、安全层、审计</div>
+
+    <h2 id="usage"><span class="num">07</span>使用说明</h2>
+    <h3>安装与启动</h3>
+    <ol>
+      <li>从 <a href="https://github.com/lty2025/fuyao-matrixnext/releases/tag/v0.4.1-matrixnext">Releases</a> 下载：
+        <ul>
+          <li><strong>轻量版</strong>：单个 zip，约 169MB，不含语音模型；</li>
+          <li><strong>完整版</strong>：4 个分卷（001–004，约 581MB），全部下载后右键 <code>.001</code> 用 7-Zip 解压。</li>
+        </ul>
+      </li>
+      <li>解压后双击「启动演示.bat」。首次启动会在同目录创建 <code>profile</code>，配置与缓存不写入系统。</li>
+      <li>系统要求：Windows 10 / 11 x64；程序未签名，SmartScreen 提示时选择「仍要运行」。</li>
+    </ol>
+    <h3>零配置演示（无需 Key）</h3>
+    <p>默认使用 mock 演示模式，启动后会自动打开本地演示页。在右侧「鹏」输入 <code>搜索 DeepSeek</code>，按 Ctrl+Enter 或点发送：鹏会输入关键词、提交搜索、点击结果，落到详情页。</p>
+    <h3>接入真实模型</h3>
+    <ol>
+      <li>打开「设置 → AI 模型」；</li>
+      <li>选择提供方：<strong>MOI Genesis（比赛推荐）</strong>、DeepSeek、火山方舟、阿里云百炼、智谱 GLM 或自定义 OpenAI 兼容地址；</li>
+      <li>填入 API Key；Genesis 的 Base URL 以 MOI 控制台「使用」页为准（默认已填 <code>https://token.moi.matrixorigin.cn/v1</code>）；</li>
+      <li>点「获取模型」选择模型，再点「设为当前使用」。</li>
+    </ol>
+    <h3>语音与快捷键</h3>
+    <ul>
+      <li>点鹏输入框里的 🎤，或按 <code>Ctrl+Shift+Space</code>；说完停顿约 1 秒自动结束，识别结果填入输入框。</li>
+      <li>急停：<code>Ctrl+Alt+Escape</code>；快捷键可在「设置 → 快捷键与安全」中录制与清除。</li>
+    </ul>
+    <h3>审批与审计</h3>
+    <ul>
+      <li>L2 操作会弹出审批卡片；允许一次或拒绝，120 秒未处理自动拒绝；</li>
+      <li>审计位于「设置 → 快捷键与安全 → 审计日志」，可刷新、打开目录、导出；</li>
+      <li>若开启「自动批准 L2（不推荐）」，高风险操作不再询问，但仍写入审计。</li>
+    </ul>
+
+    <h2 id="value"><span class="num">08</span>场景与业务价值</h2>
+    <p>对应创意赛道的「流程自动驾驶」：把高频、重复、跨站的浏览器流程交给鹏执行，同时用审批与审计让它可被团队接受。</p>
+    <table>
+      <tr><th>场景</th><th>鹏做什么</th><th>治理如何介入</th></tr>
+      <tr><td>采购信息收集与比价</td><td>跨多个供应商站点收集价格、规格、库存，汇总对比</td><td>表单提交与购买类按钮触发 L2 审批；审计保留访问轨迹</td></tr>
+      <tr><td>跨站资料汇总</td><td>一个任务里打开多个页面，抽取要点生成日报</td><td>每次工具调用、访问 URL 都留痕，便于复核来源</td></tr>
+      <tr><td>重复表单与后台操作</td><td>登录、填写、提交等流程</td><td>密码类输入在审批与审计中打码，不落明文</td></tr>
+    </table>
+    <p><strong>业务价值</strong>：减少重复操作时间与人为错误；把“交给智能体”从个人习惯变成团队可审批、可追责的流程；模型可替换，避免被单一厂商锁定。</p>
+
+    <h2 id="security"><span class="num">09</span>安全与隐私</h2>
+    <ul>
+      <li><strong>数据流</strong>：页面内容只在执行任务时发送给你选择的模型服务；应用本身不接入统计或遥测。</li>
+      <li><strong>密钥</strong>：API Key 通过系统安全存储（Windows DPAPI / Electron safeStorage）加密保存在本地。</li>
+      <li><strong>本地语音</strong>：whisper 在本机运行，录音不会上传。</li>
+      <li><strong>操作边界</strong>：L3 拒绝本地文件、脚本 URL 和浏览器内部页面；网页标签启用 sandbox + contextIsolation，关闭 nodeIntegration。</li>
+      <li><strong>审计</strong>：只写本地文件；敏感输入在审批详情、工具结果、模型总结中均脱敏。</li>
+      <li><strong>插件</strong>：manifest 声明权限，主进程逐项校验；插件不能直接访问文件系统。</li>
+    </ul>
+
+    <h2 id="roadmap"><span class="num">10</span>局限与路线图</h2>
+    <table>
+      <tr><th>当前局限</th><th>下一步</th></tr>
+      <tr><td>仅支持 Windows；程序未签名</td><td>跨平台构建（mac/Linux）、代码签名与安装器</td></tr>
+      <tr><td>完整版含 476MB 语音模型，分发体积大</td><td>模型按需下载/量化版本；分离语音组件</td></tr>
+      <tr><td>审批为逐次确认</td><td>按站点/动作类型记住选择，团队策略模板</td></tr>
+      <tr><td>审计为原始列表</td><td>任务时间线、筛选与回放；导出报告</td></tr>
+      <tr><td>智能体在窗口不可见时无法模拟输入</td><td>后台输入通道或提示用户；已实现操作前自动恢复窗口</td></tr>
+      <tr><td>插件生态较小</td><td>插件市场与签名机制；更多企业系统连接器</td></tr>
+    </table>
+
+    <h2 id="team"><span class="num">11</span>团队与开源声明</h2>
+    <p>参赛团队：lty2025（队长）· 联系方式：3640830372@qq.com</p>
+    <p><strong>开源声明</strong>：本项目基于 MIT 协议的开源浏览器内核（扶摇 v0.4.1）进行扩展。我们新增/修改的部分包括：语音输入、安全层与审批、审计日志、零操作守卫、插件修复、快捷键与内置设置页、便携分发与演示模式。原始项目的版权与许可归其作者所有。</p>
+    <p><strong>致谢</strong>：whisper.cpp（本地语音识别）、Electron、React，以及 MatrixOrigin MOI Genesis 模型服务。</p>
+
+    <h2 id="appendix">附录</h2>
+    <h3>默认快捷键</h3>
+    <table>
+      <tr><th>功能</th><th>默认快捷键</th></tr>
+      <tr><td>语音输入</td><td><code>Ctrl+Shift+Space</code></td></tr>
+      <tr><td>急停</td><td><code>Ctrl+Alt+Escape</code></td></tr>
+      <tr><td>运行任务</td><td><code>Ctrl+Enter</code></td></tr>
+    </table>
+    <h3>安装包校验值（SHA256）</h3>
+    <pre>轻量版 fuyao-portable-lite.zip
+362ee54be7ad6238373e5832626061b56b79b767d7df422cf39b6c4a541e648a
+
+完整版分卷
+001 99d8188a4105bfdab2b7665f14a7236b36b4eefca2879eea2599c112d05b60da
+002 98b3427c7ed3b95612276d83bd245a60f8a58130677240921237845810cbd9c8
+003 eb3c1242c68f8611446b16ce43ef1452d0a0d6e1f231b547e3a33fd884da166a
+004 0a9720dc9daa7467b9b1dda154458e28eb61eeb4b1b7f87a7324ce00a40246a1</pre>
+    <h3>相关链接</h3>
+    <ul>
+      <li>作品主页：<a href="https://lty2025.github.io/fuyao-matrixnext/">https://lty2025.github.io/fuyao-matrixnext/</a></li>
+      <li>代码仓库：<a href="https://github.com/lty2025/fuyao-matrixnext">https://github.com/lty2025/fuyao-matrixnext</a></li>
+      <li>安装包：<a href="https://github.com/lty2025/fuyao-matrixnext/releases/tag/v0.4.1-matrixnext">Releases · v0.4.1-matrixnext</a></li>
+      <li>PDF 版：<a href="docs.pdf">docs.pdf</a></li>
+    </ul>
+
+    <div class="foot">
+      <p>扶摇 SOAR · MatrixNEXT 2026 创意赛道作品 · 文档版本 2026-11-09</p>
+      <p>本页面同时提供 <a href="docs.pdf">PDF 下载</a>，便于离线阅读。</p>
+    </div>
+  </main>
+</div>
+</body>
+</html>
