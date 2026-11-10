@@ -24,8 +24,17 @@
   .layout { display:flex; max-width:1280px; margin:0 auto; }
   aside { width:250px; flex:none; padding:28px 18px 60px 28px; position:sticky; top:58px; align-self:flex-start; max-height:calc(100vh - 58px); overflow:auto; }
   aside .tagline { color:var(--ink3); font-size:12px; letter-spacing:.5px; margin-bottom:14px; }
-  aside a { display:block; color:var(--ink2); font-size:13px; padding:5px 8px; border-left:2px solid transparent; border-radius:0 6px 6px 0; }
+  aside a { display:block; color:var(--ink2); font-size:13px; padding:5px 8px; border-left:2px solid transparent; border-radius:0 6px 6px 0; transition:color .18s ease, background .18s ease, font-size .18s ease, padding .18s ease, font-weight .18s ease; }
   aside a:hover { color:var(--ink); background:rgba(255,255,255,.03); text-decoration:none; }
+  aside a.active {
+    color:var(--cyan);
+    font-weight:700;
+    font-size:15px;
+    padding:6px 8px 6px 10px;
+    background:rgba(62,221,223,.09);
+    border-left-color:var(--cyan);
+    text-shadow:0 0 14px rgba(62,221,223,.35);
+  }
   aside .sub { padding-left:18px; font-size:12.5px; color:var(--ink3); }
   main { flex:1; min-width:0; padding:34px 46px 100px; max-width:960px; }
   h1 { font-size:34px; line-height:1.25; margin:6px 0 10px; letter-spacing:.5px; }
@@ -340,5 +349,42 @@
     </div>
   </main>
 </div>
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('aside a[href^="#"]'));
+  var secs = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
+  if (!secs.length) return;
+  var current = null;
+  var aside = document.querySelector('aside');
+  function keepVisible(a) {
+    if (!aside) return;
+    var r = a.getBoundingClientRect(), ar = aside.getBoundingClientRect();
+    if (r.top < ar.top) aside.scrollTop += r.top - ar.top - 16;
+    else if (r.bottom > ar.bottom) aside.scrollTop += r.bottom - ar.bottom + 16;
+  }
+  function setActive(id) {
+    if (id === current) return;
+    current = id;
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('active', on);
+      if (on) keepVisible(a);
+    });
+  }
+  function update() {
+    var probe = window.scrollY + window.innerHeight * 0.3;
+    var cur = secs[0];
+    for (var i = 0; i < secs.length; i++) {
+      if (secs[i].getBoundingClientRect().top + window.scrollY <= probe) cur = secs[i];
+    }
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) cur = secs[secs.length - 1];
+    setActive(cur.id);
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('hashchange', update);
+  update();
+})();
+</script>
 </body>
 </html>

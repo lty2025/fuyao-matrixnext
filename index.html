@@ -53,7 +53,21 @@
   h1 { font-size: clamp(32px, 4.6vw, 54px); line-height: 1.12; margin: 18px 0 18px; font-weight: 700; }
   .nowrap { white-space: nowrap; }
   h1 .thin { color: var(--ink-2); font-weight: 300; }
-  h1 .grad { background: linear-gradient(90deg, var(--cyan), #9af5f6 45%, var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  h1 .grad {
+    background: linear-gradient(100deg, #3edddf 0%, #63b3ff 26%, #c58cff 52%, #ff9a62 76%, #f0c979 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradFlow 9s ease-in-out infinite alternate;
+  }
+  @keyframes gradFlow {
+    from { background-position: 0% center; }
+    to { background-position: 100% center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    h1 .grad { animation: none; }
+  }
   h2 { font-size: clamp(24px, 3vw, 34px); margin: 0 0 12px; }
   .sub { color: var(--ink-2); font-size: clamp(15px, 1.6vw, 18px); max-width: 720px; }
   .muted { color: var(--ink-3); }
@@ -128,8 +142,9 @@
   .scenario .row { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-3); border-top: 1px dashed var(--line); padding-top: 10px; }
   .scenario .row b { color: var(--cyan); font-weight: 600; }
 
-  .video { display: grid; grid-template-columns: 1.15fr .85fr; gap: 30px; align-items: center; }
-  .video-frame { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+  .video { display: grid; grid-template-columns: 1fr; gap: 30px; align-items: center; justify-items: center; }
+  .video-frame { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #000; width: 100%; max-width: 1000px; }
+  .video-frame video { width: 100%; display: block; aspect-ratio: 960 / 608; background: #000; }
   .video-frame img { width: 100%; opacity: .7; }
   .video-frame .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: radial-gradient(60% 60% at 50% 45%, rgba(0,0,0,.25), rgba(0,0,0,.72)); }
   .play { width: 64px; height: 64px; border-radius: 50%; border: 1px solid rgba(62,221,223,.5); background: rgba(62,221,223,.14); display: grid; place-items: center; color: var(--cyan); font-size: 22px; }
@@ -191,7 +206,7 @@
       <div class="hero-grid">
         <div>
           <span class="tag cyan">MatrixNEXT 2026 · 创意赛道 · 流程自动驾驶</span>
-          <h1>让浏览器智能体<br /><span class="nowrap"><span class="grad">可审批、可审计</span><span class="thin">、可信任</span></span></h1>
+          <h1>让浏览器智能体<br /><span class="nowrap grad">可审批、可审计、可信任</span></h1>
           <p class="sub">扶摇是一个 AI 原生浏览器。用一句自然语言，让「鹏」在真实网页上观察、点击、输入、总结；高风险操作必须经过你审批，每一步都留下审计记录。</p>
           <div class="hero-cta">
             <a class="btn primary" href="#download">下载便携版</a>
@@ -381,28 +396,16 @@
       <div class="section-head">
         <div>
           <span class="eyebrow">Demo</span>
-          <h2>3 分钟演示</h2>
+          <h2>实机演示</h2>
         </div>
-        <p>演示视频正在制作中；下面是计划的分镜与现场可复现的任务。</p>
+        <p>3 分 45 秒实机录屏：一句自然语言下达任务，「鹏」在真实网页上操作；高风险点击弹出审批，本地文件被 L3 拦截，全过程写入审计。</p>
       </div>
       <div class="video">
         <div class="video-frame">
-          <img src="assets/approval.png" alt="演示视频占位" loading="lazy" />
-          <div class="overlay">
-            <div class="play">▶</div>
-            <div class="label">演示视频制作中 · 即将上线</div>
-          </div>
-        </div>
-        <div>
-          <h3 style="margin-top:0">分镜</h3>
-          <ol style="padding-left:18px;color:var(--ink-2);font-size:14px;line-height:2">
-            <li>语音或文字下达任务 → 鹏可视化操作页面</li>
-            <li>高风险点击触发 L2 审批 → 允许 / 拒绝</li>
-            <li>file:// 访问被 L3 拦截 → 审计记录可见</li>
-            <li>插件（页面摘要 / 划词翻译）与快捷键</li>
-            <li>数据与收益：步骤、干预次数、耗时</li>
-          </ol>
-          <p class="muted small" style="margin-top:12px">评委可先用便携版里的 mock 模式离线体验：在「鹏」输入「搜索 DeepSeek」即可。</p>
+          <video id="demoVideo" controls playsinline preload="metadata" poster="assets/demo-poster.jpg">
+            <source src="assets/demo.mp4" type="video/mp4" />
+            你的浏览器不支持视频播放，请<a href="assets/demo.mp4">下载观看</a>。
+          </video>
         </div>
       </div>
     </div>
